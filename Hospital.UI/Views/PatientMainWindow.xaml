@@ -1,0 +1,34 @@
+﻿<Window x:Class="Hospital.UI.Views.PatientMainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Пациент"
+        Height="300"
+        Width="400"
+        WindowStartupLocation="CenterScreen">
+
+    <StackPanel Margin="20">
+
+        <TextBlock Text="Кабинет пациента"
+                   FontSize="18"
+                   FontWeight="Bold"
+                   Margin="0,0,0,20"/>
+
+        <Button Content="Подать заявку"
+                Height="35"
+                Margin="0,0,0,10"
+                Click="CreateApplication_Click"/>
+
+        <Button Content="Мои приёмы"
+                Height="35"
+                Margin="0,0,0,10"/>
+
+        <Button Content="История приемов"
+                Height="35"
+                Margin="0,0,0,10"/>
+
+        <Button Content="Выход"
+                Height="35"
+                Margin="0,0,0,10"/>
+
+    </StackPanel>
+</Window>

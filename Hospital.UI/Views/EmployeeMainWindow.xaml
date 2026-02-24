@@ -1,0 +1,30 @@
+﻿<Window x:Class="Hospital.UI.Views.EmployeeMainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Сотрудник"
+        Height="300"
+        Width="400"
+        WindowStartupLocation="CenterScreen">
+
+    <StackPanel Margin="20">
+
+        <TextBlock Text="Панель сотрудника"
+                   FontSize="18"
+                   FontWeight="Bold"
+                   Margin="0,0,0,20"/>
+
+        <Button Content="Заявки пациентов"
+        Height="35"
+        Margin="0,0,0,10"
+        Click="Applications_Click"/>
+
+        <Button Content="Приёмы"
+                Height="35"
+                Margin="0,0,0,10"/>
+
+        <Button Content="Пациенты"
+                Height="35"/>
+        
+
+    </StackPanel>
+</Window>
