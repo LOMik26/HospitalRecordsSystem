@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Hospital.UI;
 
 namespace Hospital.UI.Views
 {
@@ -32,6 +33,26 @@ namespace Hospital.UI.Views
         {
             var window = new ApplicationWindow(_patientId);
             window.ShowDialog();
+        }
+
+        private void MyAppointments_Click(object sender, RoutedEventArgs e)
+        {
+            // TODO: реализовать окно «Мои приёмы»
+            MessageBox.Show("Функция 'Мои приёмы' ещё не реализована.");
+        }
+
+        private void AppointmentHistory_Click(object sender, RoutedEventArgs e)
+        {
+            // TODO: реализовать окно истории приёмов
+            MessageBox.Show("Функция 'История приемов' ещё не реализована.");
+        }
+
+        private void Logout_Click(object sender, RoutedEventArgs e)
+        {
+            // Вернуться на окно авторизации
+            var loginWindow = new MainWindow();
+            loginWindow.Show();
+            Close();
         }
     }
 }

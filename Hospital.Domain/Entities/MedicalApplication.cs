@@ -1,5 +1,4 @@
 ﻿using Hospital.Domain.Enums;
-using Hospital.UI.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +7,8 @@ using System.Threading.Tasks;
 
 namespace Hospital.Domain.Entities
 {
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public class MedicalApplication
     {
         public int Id { get; set; }
@@ -22,9 +23,11 @@ namespace Hospital.Domain.Entities
         public string PassportSeries { get; set; } = null!;
         public string PassportNumber { get; set; } = null!;
 
+        [NotMapped]
         public decimal Price { get; set; }
 
         public PaymentStatus PaymentStatus { get; set; }
+
         public ApplicationProcessStatus Status { get; set; }
 
         public DateTime CreatedAt { get; set; }

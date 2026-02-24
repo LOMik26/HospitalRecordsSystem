@@ -1,7 +1,6 @@
 ﻿using Hospital.Data;
 using Hospital.Domain.Entities;
 using Hospital.Domain.Enums;
-using Hospital.UI.Enums;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;

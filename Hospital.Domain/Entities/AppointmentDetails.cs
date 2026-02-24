@@ -1,4 +1,4 @@
-﻿using Hospital.UI.Enums;
+﻿using Hospital.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +15,7 @@ namespace Hospital.Domain.Entities
         public Appointment Appointment { get; set; } = null!;
 
         public bool IsCame { get; set; }
-        public SickLeaveStatus SickLeaveStatus { get; set; }
+        public SickLeaveStatus? SickLeaveStatus { get; set; }
         public string? Symptoms { get; set; }
         public string? Complaints { get; set; }
         public string? Diagnosis { get; set; }

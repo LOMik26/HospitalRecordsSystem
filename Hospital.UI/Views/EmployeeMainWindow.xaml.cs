@@ -27,5 +27,13 @@ namespace Hospital.UI.Views
             window.ShowDialog();
         }
 
+        private void Logout_Click(object sender, RoutedEventArgs e)
+        {
+            // Возвращаемся на окно авторизации
+            var login = new MainWindow();
+            login.Show();
+            Close();
+        }
+
     }
 }

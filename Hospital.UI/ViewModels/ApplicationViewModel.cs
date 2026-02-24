@@ -1,7 +1,6 @@
 ﻿using Hospital.Data;
 using Hospital.Domain.Entities;
 using Hospital.Domain.Enums;
-using Hospital.UI.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +22,7 @@ namespace Hospital.UI.ViewModels
 
         public static decimal Price => 1500;
 
-        public MedicalApplication CreateApplication(int patientId)
+        public MedicalApplication CreateApplication(int patientId, bool paid = false)
         {
             var app = new MedicalApplication
             {
@@ -34,7 +33,7 @@ namespace Hospital.UI.ViewModels
                 PassportSeries = PassportSeries,
                 PassportNumber = PassportNumber,
                 Price = Price,
-                PaymentStatus = PaymentStatus.Unpaid,
+                PaymentStatus = paid ? PaymentStatus.Paid : PaymentStatus.Unpaid,
                 CreatedAt = DateTime.Now
             };
 
@@ -42,6 +41,27 @@ namespace Hospital.UI.ViewModels
             _context.SaveChanges();
 
             return app;
+        }
+
+        public void LoadPatient(int patientId)
+        {
+            try
+            {
+                if (patientId <= 0) return;
+
+                var patient = _context.Patients.Find(patientId);
+                if (patient == null) return;
+
+                FullName = patient.FullName;
+                Phone = patient.Phone;
+                BirthDate = patient.BirthDate;
+                PassportSeries = patient.PassportSeries;
+                PassportNumber = patient.PassportNumber;
+            }
+            catch
+            {
+                // ignore load errors
+            }
         }
     }
 }

@@ -19,15 +19,27 @@ namespace Hospital.UI.Views
             InitializeComponent();
             _patientId = patientId;
             DataContext = _vm; // если используешь привязки
+            _vm.LoadPatient(_patientId);
         }
 
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                _vm.CreateApplication(_patientId);
-                MessageBox.Show("Заявка успешно создана.");
-                Close();
+                // Открываем окно оплаты перед созданием заявки
+                var payWindow = new PaymentWindow();
+                payWindow.Owner = this;
+                var paid = payWindow.ShowDialog();
+                if (paid == true)
+                {
+                    _vm.CreateApplication(_patientId, paid: true);
+                    MessageBox.Show("Заявка успешно создана и оплачена.");
+                    Close();
+                }
+                else
+                {
+                    MessageBox.Show("Оплата не выполнена. Заявка не создана.");
+                }
             }
             catch (Exception ex)
             {

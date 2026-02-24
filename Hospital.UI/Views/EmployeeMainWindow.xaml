@@ -25,6 +25,11 @@
         <Button Content="Пациенты"
                 Height="35"/>
         
+        <Button Content="Выход"
+                Height="35"
+                Margin="0,10,0,0"
+                Click="Logout_Click"/>
+        
 
     </StackPanel>
 </Window>

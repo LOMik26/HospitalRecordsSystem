@@ -17,40 +17,49 @@ namespace Hospital.UI.ViewModels
 
         private void ExecuteLogin(Window loginWindow)
         {
-            EnsureAdminExists();
-
-            var user = _context.Users.FirstOrDefault(u => u.Login == Login);
-            if (user == null)
+            try
             {
-                MessageBox.Show("Пользователь не найден");
-                return;
-            }
+                EnsureAdminExists();
 
-            var hash = HashPassword(Password);
-            if (user.PasswordHash != hash)
-            {
-                MessageBox.Show("Неверный пароль");
-                return;
-            }
-
-            Window nextWindow;
-            if (user.Role == UserRole.Patient)
-            {
-                var patient = _context.Patients.FirstOrDefault(p => p.Id == user.Id);
-                if (patient == null)
+                var user = _context.Users.FirstOrDefault(u => u.Login == Login);
+                if (user == null)
                 {
-                    MessageBox.Show("У этого аккаунта нет связанной записи пациента. Обратитесь к администратору.");
+                    MessageBox.Show("Пользователь не найден");
                     return;
                 }
-                nextWindow = new PatientMainWindow(patient.Id);
-            }
+
+                // Compare plaintext (no hashing for educational purposes)
+                if (user.PasswordHash != Password)
+                {
+                    MessageBox.Show("Неверный пароль");
+                    return;
+                }
+
+            Window nextWindow;
+                if (user.Role == UserRole.Patient)
+                {
+                    // user.PatientId хранит связь к Patient
+                    var patient = _context.Patients.FirstOrDefault(p => p.Id == user.PatientId);
+                    if (patient == null)
+                    {
+                        MessageBox.Show("У этого аккаунта нет связанной записи пациента. Обратитесь к администратору.");
+                        return;
+                    }
+                    nextWindow = new PatientMainWindow(patient.Id);
+                }
             else if (user.Role == UserRole.Employee)
                 nextWindow = new EmployeeMainWindow();
             else
                 return;
 
-            nextWindow.Show();
-            loginWindow.Close();
+                nextWindow.Show();
+                loginWindow.Close();
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show("Ошибка при входе: " + (ex.InnerException?.Message ?? ex.Message));
+                return;
+            }
         }
 
         private string HashPassword(string password)
@@ -73,7 +82,8 @@ namespace Hospital.UI.ViewModels
             var admin = new User
             {
                 Login = "admin",
-                PasswordHash = HashPassword("admin"),
+                // plaintext for educational purposes
+                PasswordHash = "admin",
                 Role = UserRole.Employee
             };
 

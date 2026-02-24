@@ -30,6 +30,24 @@ namespace Hospital.Data
                 .HasOne(a => a.Details)
                 .WithOne(d => d.Appointment)
                 .HasForeignKey<AppointmentDetails>(d => d.AppointmentId);
+
+            // Конвертация enum в string для совместимости с текущими миграциями
+            modelBuilder.Entity<User>()
+                .Property(u => u.Role)
+                .HasConversion<string>();
+
+            modelBuilder.Entity<AppointmentDetails>()
+                .Property(d => d.SickLeaveStatus)
+                .HasConversion<string?>();
+
+            // Конвертация enum PaymentStatus и ApplicationProcessStatus в string
+            modelBuilder.Entity<MedicalApplication>()
+                .Property(m => m.PaymentStatus)
+                .HasConversion<string>();
+
+            modelBuilder.Entity<MedicalApplication>()
+                .Property(m => m.Status)
+                .HasConversion<string>();
         }
     }
 }

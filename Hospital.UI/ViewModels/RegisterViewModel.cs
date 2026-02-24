@@ -24,36 +24,45 @@ namespace Hospital.UI.ViewModels
 
         public bool Register()
         {
-            if (_context.Users.Any(u => u.Login == Login))
+            try
             {
-                MessageBox.Show("Логин уже существует");
+                if (_context.Users.Any(u => u.Login == Login))
+                {
+                    MessageBox.Show("Логин уже существует");
+                    return false;
+                }
+
+                var patient = new Patient
+                {
+                    FullName = FullName,
+                    Phone = Phone,
+                    BirthDate = BirthDate,
+                    PassportSeries = PassportSeries,
+                    PassportNumber = PassportNumber
+                };
+
+                _context.Patients.Add(patient);
+                _context.SaveChanges();
+
+                var user = new User
+                {
+                    Login = Login,
+                    // Store plaintext password for educational purposes (insecure)
+                    PasswordHash = Password,
+                    Role = UserRole.Patient,
+                    PatientId = patient.Id
+                };
+
+                _context.Users.Add(user);
+                _context.SaveChanges();
+
+                return true;
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show("Ошибка при регистрации: " + (ex.InnerException?.Message ?? ex.Message));
                 return false;
             }
-
-            var patient = new Patient
-            {
-                FullName = FullName,
-                Phone = Phone,
-                BirthDate = BirthDate,
-                PassportSeries = PassportSeries,
-                PassportNumber = PassportNumber
-            };
-
-            _context.Patients.Add(patient);
-            _context.SaveChanges();
-
-            var user = new User
-            {
-                Login = Login,
-                PasswordHash = HashPassword(Password),
-                Role = UserRole.Patient,
-                PatientId = patient.Id
-            };
-
-            _context.Users.Add(user);
-            _context.SaveChanges();
-
-            return true;
         }
 
         private string HashPassword(string password)

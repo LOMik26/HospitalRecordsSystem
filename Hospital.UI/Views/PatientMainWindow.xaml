@@ -20,15 +20,18 @@
 
         <Button Content="Мои приёмы"
                 Height="35"
-                Margin="0,0,0,10"/>
+                Margin="0,0,0,10"
+                Click="MyAppointments_Click"/>
 
         <Button Content="История приемов"
                 Height="35"
-                Margin="0,0,0,10"/>
+                Margin="0,0,0,10"
+                Click="AppointmentHistory_Click"/>
 
         <Button Content="Выход"
                 Height="35"
-                Margin="0,0,0,10"/>
+                Margin="0,0,0,10"
+                Click="Logout_Click"/>
 
     </StackPanel>
 </Window>
