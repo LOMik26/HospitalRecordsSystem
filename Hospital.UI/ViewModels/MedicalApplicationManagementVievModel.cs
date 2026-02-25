@@ -12,7 +12,7 @@ namespace Hospital.UI.ViewModels
     {
         private readonly HospitalDbContext _context = new();
 
-        public ObservableCollection<MedicalApplication> Applications { get; set; } = new();
+        public ObservableCollection<MedicalApplication> Applications { get; set; }
 
         private MedicalApplication? _selectedApplication;
         public MedicalApplication? SelectedApplication

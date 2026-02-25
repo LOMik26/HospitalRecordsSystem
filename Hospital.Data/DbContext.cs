@@ -13,32 +13,25 @@ namespace Hospital.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ)
+            // Настраиваем подключение к базе (строка подключения задаётся как нужно)
             optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=HospitalDB;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ Patient 1:N Appointment
+            // Отношение Patient 1:N Appointment
             modelBuilder.Entity<Appointment>()
                 .HasOne(a => a.Patient)
                 .WithMany(p => p.Appointments)
                 .HasForeignKey(a => a.PatientId);
 
-            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ Patient 1:N MedicalApplication (nullable FK)
-            modelBuilder.Entity<MedicalApplication>()
-                .HasOne(m => m.Patient)
-                .WithMany(p => p.Applications)
-                .HasForeignKey(m => m.PatientId)
-                .IsRequired(false);
-
-            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ Appointment 1:1 AppointmentDetails
+            // Отношение Appointment 1:1 AppointmentDetails
             modelBuilder.Entity<Appointment>()
                 .HasOne(a => a.Details)
                 .WithOne(d => d.Appointment)
                 .HasForeignKey<AppointmentDetails>(d => d.AppointmentId);
 
-            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ enum пїЅ string пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+            // Конвертация enum в string для совместимости с текущими миграциями
             modelBuilder.Entity<User>()
                 .Property(u => u.Role)
                 .HasConversion<string>();
@@ -47,7 +40,7 @@ namespace Hospital.Data
                 .Property(d => d.SickLeaveStatus)
                 .HasConversion<string?>();
 
-            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ enum PaymentStatus пїЅ ApplicationProcessStatus пїЅ string
+            // Конвертация enum PaymentStatus и ApplicationProcessStatus в string
             modelBuilder.Entity<MedicalApplication>()
                 .Property(m => m.PaymentStatus)
                 .HasConversion<string>();
