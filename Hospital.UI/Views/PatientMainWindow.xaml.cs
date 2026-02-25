@@ -37,15 +37,14 @@ namespace Hospital.UI.Views
 
         private void MyAppointments_Click(object sender, RoutedEventArgs e)
         {
-            var window = new AppointmentListWindow(_patientId, isEmployeeView: false);
-            window.ShowDialog();
+            // TODO: реализовать окно «Мои приёмы»
+            MessageBox.Show("Функция 'Мои приёмы' ещё не реализована.");
         }
 
         private void AppointmentHistory_Click(object sender, RoutedEventArgs e)
         {
-            var window = new AppointmentListWindow(_patientId, isEmployeeView: false);
-            window.Title = "История приёмов";
-            window.ShowDialog();
+            // TODO: реализовать окно истории приёмов
+            MessageBox.Show("Функция 'История приемов' ещё не реализована.");
         }
 
         private void Logout_Click(object sender, RoutedEventArgs e)

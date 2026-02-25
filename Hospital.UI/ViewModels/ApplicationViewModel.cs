@@ -34,7 +34,6 @@ namespace Hospital.UI.ViewModels
                 PassportNumber = PassportNumber,
                 Price = Price,
                 PaymentStatus = paid ? PaymentStatus.Paid : PaymentStatus.Unpaid,
-                Status = ApplicationProcessStatus.Pending,
                 CreatedAt = DateTime.Now
             };
 

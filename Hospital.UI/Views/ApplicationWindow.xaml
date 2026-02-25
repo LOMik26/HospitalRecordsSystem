@@ -31,7 +31,7 @@
         <TextBlock Text="Стоимость услуги: 1500 ₽"
                    FontWeight="Bold"/>
 
-        <Button Content="Оплатить и отправить"
+        <Button Content="Перейти к оплате"
                 Height="35"
                 Margin="0,15,0,0"
                 Click="Submit_Click"/>
