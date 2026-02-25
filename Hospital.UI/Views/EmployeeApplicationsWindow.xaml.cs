@@ -35,8 +35,23 @@ namespace Hospital.UI.Views
             if (ApplicationsGrid.SelectedItem is not Domain.Entities.MedicalApplication app)
                 return;
 
+            // Validate date input
+            if (AppointmentDatePicker.SelectedDate == null)
+            {
+                MessageBox.Show("Пожалуйста, укажите дату приёма.");
+                return;
+            }
+
+            if (!System.TimeSpan.TryParse(AppointmentTimeBox.Text, out var timeSpan))
+            {
+                MessageBox.Show("Пожалуйста, укажите время приёма в формате ЧЧ:ММ.");
+                return;
+            }
+
+            var appointmentDate = AppointmentDatePicker.SelectedDate.Value.Date + timeSpan;
+
             // Если у заявки нет связанного пациента — пытаемся найти или создать запись пациента
-            if (app.PatientId == 0)
+            if (app.PatientId == null)
             {
                 var existing = _context.Patients.FirstOrDefault(p => p.PassportSeries == app.PassportSeries && p.PassportNumber == app.PassportNumber);
                 if (existing == null)
@@ -61,17 +76,17 @@ namespace Hospital.UI.Views
 
             app.Status = ApplicationProcessStatus.Accepted;
 
-            // Создаём приём — по умолчанию назначаем на следующий день в 09:00
+            // Создаём приём с указанной датой
             var appointment = new Domain.Entities.Appointment
             {
-                PatientId = app.PatientId,
-                AppointmentDate = System.DateTime.Now.Date.AddDays(1).AddHours(9)
+                PatientId = app.PatientId!.Value,
+                AppointmentDate = appointmentDate
             };
             _context.Appointments.Add(appointment);
 
             _context.SaveChanges();
 
-            MessageBox.Show("Заявка принята и создан приём: " + appointment.AppointmentDate.ToString());
+            MessageBox.Show("Заявка принята и создан приём: " + appointment.AppointmentDate.ToString("dd.MM.yyyy HH:mm"));
             LoadApplications();
         }
 

@@ -13,8 +13,8 @@ namespace Hospital.Domain.Entities
     {
         public int Id { get; set; }
 
-        public int PatientId { get; set; }
-        public Patient Patient { get; set; } = null!;
+        public int? PatientId { get; set; }
+        public Patient? Patient { get; set; }
 
         public string FullName { get; set; } = null!;
         public string Phone { get; set; } = null!;
