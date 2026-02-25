@@ -13,17 +13,15 @@
                    FontWeight="Bold"
                    Margin="0,0,0,20"/>
 
-        <Button Content="Заявки пациентов"
+        <Button Content="Новые заявки"
         Height="35"
         Margin="0,0,0,10"
         Click="Applications_Click"/>
 
-        <Button Content="Приёмы"
+        <Button Content="Данные пациентов"
                 Height="35"
-                Margin="0,0,0,10"/>
-
-        <Button Content="Пациенты"
-                Height="35"/>
+                Margin="0,0,0,10"
+                Click="Patients_Click"/>
         
         <Button Content="Выход"
                 Height="35"
